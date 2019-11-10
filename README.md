@@ -1,8 +1,8 @@
 # employee-api
 employee api assignment
-# build: mvn clean package 
-# run: mvn spring-boot:run
-# access url: http://localhost:8080/swagger-ui.html
+#### build: `mvn clean package` 
+#### run: `mvn spring-boot:run`
+#### access url: `http://localhost:8080/swagger-ui.html`
 send post request with the below data by using above swagger url.
 ```json
 {
