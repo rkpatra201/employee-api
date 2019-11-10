@@ -1,6 +1,7 @@
 package com.spring.mock.service;
 
 import com.spring.entity.Employee;
+import com.spring.mock.utils.TestUtils;
 import com.spring.model.Department;
 import com.spring.model.Gender;
 import com.spring.model.SortingOrder;
@@ -14,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,35 +28,29 @@ public class EmployeeServiceTest {
     @MockBean
     private EmployeeRepository employeeRepository;
 
-    List<Employee> employeeList = null;
 
-    @DisplayName("test get employees by sorting order")
+    @DisplayName("test get employees by asc order")
     @Test
-    public void testFindEmployees() {
-        setUpMockList();
+    public void testFindEmployeesAsc() {
+        List<Employee> employeeList = TestUtils.getMockEmployees();
+        Mockito.when(employeeRepository.findByOrderByFirstNameAsc()).thenReturn(employeeList);
         List<Employee> employeeListFromSvc = employeeService.findEmployees(SortingOrder.ASC);
-        assertEquals(employeeList, employeeListFromSvc);
+        TestUtils.compareListOrderByName(employeeList, employeeListFromSvc);
     }
 
-    private void setUpMockList() {
-        employeeList = new ArrayList<>();
-        Employee e1 = new Employee();
-        e1.setDateOfBirth(DateConverterUtils.toDate("24-08-1996"));
-        e1.setFirstName("F1");
-        e1.setLastName("L1");
-        e1.setDepartment(Department.FINANCE);
-        e1.setGender(Gender.MALE);
+    @DisplayName("test get employees by desc order")
+    @Test
+    public void testFindEmployeesDesc() {
+        List<Employee> employeeList = TestUtils.getMockEmployees();
+        Mockito.when(employeeRepository.findByOrderByFirstNameDesc()).thenReturn(employeeList);
+        List<Employee> employeeListFromSvc = employeeService.findEmployees(SortingOrder.DESC);
+        TestUtils.compareListOrderByName(employeeList, employeeListFromSvc);
+    }
 
-        Employee e2 = new Employee();
-        e2.setDateOfBirth(DateConverterUtils.toDate("24-08-1996"));
-        e2.setFirstName("F2");
-        e2.setLastName("L2");
-        e2.setDepartment(Department.HR);
-        e2.setGender(Gender.FEMALE);
-
-        employeeList.add(e1);
-        employeeList.add(e2);
+    private List<Employee> setUpMockList() {
+        List<Employee> employeeList = TestUtils.getMockEmployees();
         Mockito.when(employeeRepository.findByOrderByFirstNameAsc()).thenReturn(employeeList);
+        return employeeList;
     }
 
     @DisplayName("test save employee")

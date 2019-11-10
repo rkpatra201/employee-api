@@ -1,5 +1,6 @@
 package com.spring.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.spring.model.Department;
 import com.spring.model.Gender;
 
@@ -14,6 +15,7 @@ public class Employee {
     private String firstName;
     private String lastName;
     private Gender gender;
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date dateOfBirth;
     private Department department;
 

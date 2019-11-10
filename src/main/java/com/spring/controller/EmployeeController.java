@@ -22,12 +22,12 @@ public class EmployeeController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Long> saveEmployee(@RequestBody Employee employee) {
+    public ResponseEntity<Long> createEmployee(@RequestBody Employee employee) {
         Long id = employeeService.saveEmployee(employee);
-        return ResponseEntity.status(HttpStatus.OK).body(id);
+        return ResponseEntity.status(HttpStatus.CREATED).body(id);
     }
 
-    @GetMapping("/{sortingOrder")
+    @GetMapping("/{sortingOrder}")
     public ResponseEntity<List<Employee>> getEmployeeList(@PathVariable("sortingOrder") SortingOrder sortingOrder) {
         List<Employee> list =  employeeService.findEmployees(sortingOrder);
         return ResponseEntity.status(HttpStatus.OK).body(list);

@@ -13,14 +13,16 @@ public class EmployeeService {
 
     @Autowired
     private EmployeeRepository employeeRepository;
-    public Long saveEmployee(Employee employee)
-    {
+
+    public Long saveEmployee(Employee employee) {
         employeeRepository.save(employee);
         return employee.getId();
     }
 
-    public List<Employee> findEmployees(SortingOrder sortingOrder)
-    {
-        return employeeRepository.findByOrderByFirstNameAsc();
+    public List<Employee> findEmployees(SortingOrder sortingOrder) {
+        if (sortingOrder == SortingOrder.ASC)
+            return employeeRepository.findByOrderByFirstNameAsc();
+        else
+            return employeeRepository.findByOrderByFirstNameDesc();
     }
 }
