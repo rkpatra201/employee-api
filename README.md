@@ -1,5 +1,8 @@
 # employee-api
-employee api assignment
+
+----
+employee api assignment. It uses spring-boot and h2 in memory database. Mock test cases written for service and controller. Integration test is written for controller and repository layer.
+
 #### build: `mvn clean package` 
 #### run: `mvn spring-boot:run`
 #### access url: `http://localhost:8080/swagger-ui.html`
