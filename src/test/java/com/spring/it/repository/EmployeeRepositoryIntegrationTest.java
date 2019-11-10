@@ -6,9 +6,7 @@ import com.spring.model.Department;
 import com.spring.model.Gender;
 import com.spring.repository.EmployeeRepository;
 import com.spring.utils.DateConverterUtils;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -16,11 +14,23 @@ import java.util.Arrays;
 import java.util.List;
 
 @SpringBootTest
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class EmployeeRepositoryIntegrationTest {
 
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    @BeforeAll
+    void beforeAll()
+    {
+        employeeRepository.deleteAll();
+    }
+
+    @AfterAll
+    void afterAll()
+    {
+        employeeRepository.deleteAll();
+    }
     @DisplayName("test both ascending and descending order of firstName")
     @Test
     public void testFindByOrderByFirstName() {
